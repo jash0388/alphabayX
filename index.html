@@ -245,12 +245,13 @@
       title.style.opacity=1;
       status.innerText="SYSTEM ONLINE";
       gsap.fromTo(title,{scale:.95},{scale:1,duration:.6});
+      window.location.href = 'reviews.html';
     }
 
     gsap.from('.viewport',{opacity:0,y:60,duration:1.6,ease:'power4.out'});
     setTimeout(typeBoot,800);
+    
   </script>
-  window.location.href = 'reviews.html';
 
 </body>
 </html>
