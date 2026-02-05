@@ -151,18 +151,7 @@
       window.location.href = "/";
     }
   </script>
-<form name="review-form" method="POST" data-netlify="true" class="max-w-lg mx-auto p-6 bg-gray-900 text-white rounded">
-  <label class="block mb-2" for="name">Name:</label>
-  <input class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" type="text" id="name" name="name" required />
-  
-  <label class="block mb-2" for="rating">Rating (1-5):</label>
-  <input class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" type="number" id="rating" name="rating" min="1" max="5" required />
-  
-  <label class="block mb-2" for="review">Review:</label>
-  <textarea class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" id="review" name="review" required></textarea>
-  
-  <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit Review</button>
-<script>
+
   const form = document.querySelector('form[name="review-form"]');
   form.addEventListener('submit', function(e) {
     e.preventDefault();
