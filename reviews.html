@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ALPHABAY X // REVIEWS</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Fonts -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;900&family=Space+Mono&display=swap');
+
+    :root {
+      --bg:#000;
+      --text:#fff;
+      --accent:#1DB954;
+    }
+
+    body {
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui;
+      overflow:hidden;
+    }
+
+    .sync { font-family:Syncopate,system-ui }
+    .mono { font-family:'Space Mono',monospace }
+
+    .screen {
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      padding:40px 20px;
+      text-align:center;
+    }
+
+    .review-card {
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      padding:24px;
+      border-radius:16px;
+      max-width:640px;
+      margin:18px 0;
+      opacity:0;
+    }
+
+    .review-card span {
+      display:block;
+      margin-top:12px;
+      font-size:10px;
+      letter-spacing:.4em;
+      opacity:.5;
+      text-transform:uppercase;
+    }
+
+    .bg-watermark {
+      position:fixed;
+      bottom:6vh;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:10vw;
+      font-weight:900;
+      opacity:.03;
+      letter-spacing:.3em;
+      pointer-events:none;
+      white-space:nowrap;
+    }
+
+    .nav-btn {
+      margin-top:40px;
+      font-size:10px;
+      letter-spacing:.4em;
+      opacity:.5;
+      text-transform:uppercase;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    .nav-btn:hover { opacity:1 }
+
+    @media(max-width:640px){
+      body{overflow:auto}
+      .bg-watermark{font-size:20vw}
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-watermark sync">TECHTOONS</div>
+
+  <main class="screen">
+
+    <p class="mono text-[10px] tracking-[0.5em] opacity-40 mb-6">
+      SYSTEM MODULE
+    </p>
+
+    <h1 class="sync text-4xl md:text-6xl font-black mb-14">
+      USER REVIEWS
+    </h1>
+
+   
+   
+    
+<div class="border-4 border-green-500 p-6 rounded-lg max-w-lg mx-auto bg-gray-900 text-white">
+  <form name="review-form" method="POST" data-netlify="true">
+    <label class="block mb-2" for="name">Name:</label>
+    <input class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" type="text" id="name" name="name" required />
+  
+    <label class="block mb-2" for="rating">Rating (1-5):</label>
+    <input class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" type="number" id="rating" name="rating" min="1" max="5" required />
+  
+    <label class="block mb-2" for="review">Review:</label>
+    <textarea class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" id="review" name="review" required></textarea>
+  
+    <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit Review</button>
+ <div class="nav-btn mono" onclick="goHome()">
+      ← return to system  
+</form>
+
+</div>
+
+  </main>
+
+  <script>
+    // GSAP entrance
+    gsap.from("h1", {
+      y:40,
+      opacity:0,
+      duration:1.4,
+      ease:"power4.out"
+    });
+
+    gsap.to(".review-card", {
+      opacity:1,
+      y:0,
+      stagger:0.25,
+      delay:0.6,
+      duration:1,
+      ease:"power3.out"
+    });
+
+    function goHome(){
+      window.location.href = "/";
+    }
+  </script>
+<form name="review-form" method="POST" data-netlify="true" class="max-w-lg mx-auto p-6 bg-gray-900 text-white rounded">
+  <label class="block mb-2" for="name">Name:</label>
+  <input class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" type="text" id="name" name="name" required />
+  
+  <label class="block mb-2" for="rating">Rating (1-5):</label>
+  <input class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" type="number" id="rating" name="rating" min="1" max="5" required />
+  
+  <label class="block mb-2" for="review">Review:</label>
+  <textarea class="mb-4 w-full p-2 bg-gray-800 border border-gray-700 rounded" id="review" name="review" required></textarea>
+  
+  <button class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit Review</button>
+<script>
+  const form = document.querySelector('form[name="review-form"]');
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Review submitted!');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    form.submit();
+  });
+</script>
+
+</form>
+
+
+</body>
+</html>
