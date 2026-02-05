@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ALPHABAY X</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;900&family=Space+Mono&display=swap');
+
+    :root {
+      --bg:#000;
+      --text:#fff;
+      --accent:#1DB954;
+    }
+
+    .light-mode {
+      --bg:#f5f5f7;
+      --text:#000;
+      --accent:#ff4d00;
+    }
+
+    body {
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui;
+      transition:.5s;
+      overflow:hidden;
+      user-select:none;
+    }
+
+    .sync { font-family:Syncopate,system-ui }
+    .mono { font-family:'Space Mono',monospace }
+
+    .viewport {
+      height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+    }
+
+    .dev-status {
+      padding:8px 20px;
+      border-radius:50px;
+      border:1px solid var(--accent);
+      color:var(--accent);
+      font-weight:900;
+      letter-spacing:3px;
+      animation:pulse 2s infinite;
+      margin-bottom:2rem;
+    }
+
+    @keyframes pulse {
+      0%{opacity:.4}
+      50%{opacity:1}
+      100%{opacity:.4}
+    }
+
+    .bg-text {
+      position:fixed;
+      font-size:20vw;
+      font-weight:900;
+      opacity:.02;
+      z-index:-1;
+      white-space:nowrap;
+      left:2vw;
+      top:8vh;
+    }
+
+    .bg-team {
+      position:fixed;
+      left:6vw;
+      top:28vh;
+      font-size:8vw;
+      font-weight:900;
+      letter-spacing:.2em;
+      z-index:-1;
+      white-space:nowrap;
+      background-clip:text;
+      color:transparent;
+      background-image:linear-gradient(90deg,#ff4d00,#ff2d95,#1DB954,#00b4ff);
+      opacity:.08;
+      transform:rotate(-6deg);
+      filter:drop-shadow(0 30px 40px rgba(0,0,0,.7));
+      mix-blend-mode:screen;
+      transition:.6s;
+    }
+
+    .bg-team.bright {
+      opacity:.38;
+      transform:rotate(-4deg) translateY(-6px);
+    }
+
+    .controls {
+      position:fixed;
+      bottom:40px;
+      right:40px;
+      z-index:1000;
+    }
+
+    .control-btn {
+      background:var(--text);
+      color:var(--bg);
+      padding:12px 25px;
+      border-radius:50px;
+      font-weight:800;
+      border:none;
+      font-size:10px;
+      letter-spacing:2px;
+      cursor:pointer;
+    }
+
+    .loader-track {
+      width:300px;
+      height:2px;
+      background:rgba(255,255,255,.1);
+      margin-top:40px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .loader-fill {
+      position:absolute;
+      height:100%;
+      background:var(--accent);
+      width:0%;
+    }
+
+    @keyframes flicker {
+      0%{opacity:.3}
+      20%{opacity:1}
+      40%{opacity:.4}
+      60%{opacity:1}
+      80%{opacity:.6}
+      100%{opacity:1}
+    }
+
+    .glitch {
+      animation:flicker .12s infinite;
+    }
+
+    @media(max-width:640px){
+      .bg-text{font-size:40vw;left:-5vw}
+      .bg-team{font-size:14vw;left:2vw;top:36vh}
+      body{overflow:auto}
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-text sync">TECHTOONS</div>
+  <div class="bg-team sync" id="team-name">ALPHABAY X</div>
+
+  <header class="fixed top-0 w-full p-6 flex justify-between items-center z-50">
+    <div class="sync font-bold text-xl uppercase tracking-widest">ALPHABAY X / 2026</div>
+    <div id="clock" class="mono text-xs opacity-50">00:00:00</div>
+  </header>
+
+  <main class="viewport">
+    <div class="dev-status sync" id="status-tag">DEVELOPMENT IN PROGRESS</div>
+
+    <h1 class="text-6xl md:text-9xl font-black sync leading-none">
+      SYSTEM<br>
+      <span id="main-title" class="opacity-20"></span>
+    </h1>
+
+    <div class="max-w-md mt-10">
+      <p class="mono text-xs opacity-50 tracking-widest">
+        ARCHITECT PROTOCOL IS CURRENTLY ENCRYPTED.<br>
+        INITIALIZING CORE MODULES AND VISUAL INTERFACES.<br>
+        ACCESS RESTRICTED. NOT PUBLIC YET
+      </p>
+    </div>
+
+    <div class="loader-track">
+      <div class="loader-fill" id="loader-bar"></div>
+    </div>
+
+    <p class="mono text-[10px] mt-4 opacity-30 tracking-[0.5em]">
+      A PROJECT BY ALPHA TEAM
+    </p>
+  </main>
+
+  <div class="controls">
+    <button onclick="toggleMode()" class="control-btn" id="modeBtn">PRISM MODE</button>
+  </div>
+
+  <script>
+    document.onkeydown = e => {
+      if(e.keyCode===123) return false;
+      if(e.ctrlKey && e.keyCode===85) return false;
+    };
+
+    function toggleMode(){
+      document.body.classList.toggle('light-mode');
+      modeBtn.innerText =
+        document.body.classList.contains('light-mode')
+        ? 'STEALTH MODE'
+        : 'PRISM MODE';
+    }
+
+    setInterval(()=>{
+      clock.innerText=new Date().toLocaleTimeString();
+    },1000);
+
+    const team=document.getElementById('team-name');
+    gsap.to(team,{opacity:.12,x:10,rotation:-4,yoyo:true,repeat:-1,duration:1.6});
+    setInterval(()=>team.classList.toggle('bright'),2200);
+
+    // ===== BOOT SEQUENCE =====
+    const title=document.getElementById('main-title');
+    const status=document.getElementById('status-tag');
+    const loader=document.getElementById('loader-bar');
+    const bootText="BOOTING...";
+    let i=0;
+
+    function typeBoot(){
+      if(i<bootText.length){
+        title.innerText+=bootText[i++];
+        setTimeout(typeBoot,120);
+      } else {
+        title.classList.add('glitch');
+        gsap.to(loader,{
+          width:'100%',
+          duration:3,
+          ease:'power2.inOut',
+          onComplete:online
+        });
+      }
+    }
+
+    function online(){
+      title.classList.remove('glitch');
+      title.innerText="ONLINE.";
+      title.style.opacity=1;
+      status.innerText="SYSTEM ONLINE";
+      gsap.fromTo(title,{scale:.95},{scale:1,duration:.6});
+    }
+
+    gsap.from('.viewport',{opacity:0,y:60,duration:1.6,ease:'power4.out'});
+    setTimeout(typeBoot,800);
+  </script>
+
+</body>
+</html>
